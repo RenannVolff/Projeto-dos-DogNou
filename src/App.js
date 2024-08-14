@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchDogData = async () => {
       try {
-        const response = await axios.get('https://api.thedogapi.com/v1/images/search?include_breed=1&limit=5');
+        const response = await axios.get('https://api.thedogapi.com/v1/images/search?include_breeds=true&limit=5');
         setDogData(response.data);
       } catch (err) {
         setError('Erro ao buscar dados da API. Por favor, tente novamente.');
@@ -33,7 +33,7 @@ function App() {
             dogData.map((dog, index) => (
               <div key={index} className="dog-card">
                 <img src={dog.url} alt="Random Dog" className="dog-image" />
-                {dog.breeds && dog.breeds.length > 0 && (
+                {dog.breeds && dog.breeds.length > 0 ? (
                   <div className="dog-info">
                     <h2>{dog.breeds[0].name}</h2>
                     <p><strong>Temperamento:</strong> {dog.breeds[0].temperament}</p>
@@ -41,6 +41,9 @@ function App() {
                     <p><strong>Altura:</strong> {dog.breeds[0].height.metric} cm</p>
                     <p><strong>Esperança de vida:</strong> {dog.breeds[0].life_span}</p>
                   </div>
+                ) : (
+                  <p>Informações da raça: Lorem ipsum dolor sit amet. Est dolore assumenda ea facilis incidunt et esse 
+                    laborum. Est consectetur necessitatibus est iste quod sit omnis autem aut doloribus accusantium.</p>
                 )}
               </div>
             ))
